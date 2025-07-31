@@ -1,0 +1,101 @@
+{
+  "type": "record",
+  "name": "PaymentFailedEvent",
+  "namespace": "dev.notyouraverage.messages.avro",
+  "fields": [
+    {
+      "name": "paymentId",
+      "type": "string",
+      "doc": "Unique identifier for the payment"
+    },
+    {
+      "name": "orderId",
+      "type": "string",
+      "doc": "Associated order identifier"
+    },
+    {
+      "name": "customerId",
+      "type": "string",
+      "doc": "Customer who attempted the payment"
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "doc": "Payment amount as string"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "doc": "Currency code (USD, EUR, etc.)"
+    },
+    {
+      "name": "paymentMethod",
+      "type": "string",
+      "doc": "Payment method used (CARD, BANK_TRANSFER, etc.)"
+    },
+    {
+      "name": "paymentStatus",
+      "type": "string",
+      "doc": "Payment status (FAILED, DECLINED, etc.)"
+    },
+    {
+      "name": "errorCode",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Error code from payment gateway"
+    },
+    {
+      "name": "errorMessage",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Error message describing the failure"
+    },
+    {
+      "name": "transactionId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "External transaction identifier from payment gateway"
+    },
+    {
+      "name": "paymentGateway",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Payment gateway used (STRIPE, PAYPAL, etc.)"
+    },
+    {
+      "name": "failedAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "default": 0,
+      "doc": "When the payment failed"
+    },
+    {
+      "name": "retryable",
+      "type": "boolean",
+      "default": false,
+      "doc": "Whether this payment failure can be retried"
+    },
+    {
+      "name": "eventTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "When this event was created"
+    },
+    {
+      "name": "eventSource",
+      "type": "string",
+      "default": "payment-service",
+      "doc": "Source service that generated this event"
+    },
+    {
+      "name": "eventVersion",
+      "type": "int",
+      "default": 1,
+      "doc": "Event schema version"
+    }
+  ]
+}

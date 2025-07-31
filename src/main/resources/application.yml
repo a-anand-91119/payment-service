@@ -5,3 +5,52 @@ spring:
     compose:
       enabled: false
       file: ./dependencies/compose.yaml
+app:
+  kafka:
+    bootstrap-servers: ${APP_KAFKA_AVRO_BOOTSTRAP_SERVERS:localhost:9092}
+    properties:
+      schema.registry.url: ${APP_KAFKA_AVRO_PROPERTIES_SCHEMA_REGISTRY_URL:http://localhost:8081}
+    consumer:
+      properties:
+        specific.avro.reader: true
+    topics:
+      order_created: order.created
+      payment_processed_events: avro.payments.processed
+      payment_failed_events: avro.payments.failed
+      payment_events: avro.payments
+      user_avro_message: avro.user
+      order_avro_events: avro.order
+    admin:
+      topics:
+        - name: order.created
+          partitions: 8
+          replication-factor: 1
+          configs:
+            cleanup.policy: delete
+            retention.ms: "604800000"
+            compression.type: gzip
+        - name: avro.user
+          partitions: 8
+          replication-factor: 1
+          configs:
+            cleanup.policy: delete
+            retention.ms: "604800000"
+            compression.type: gzip
+        - name: avro.order
+          partitions: 8
+          replication-factor: 1
+          configs:
+            cleanup.policy: delete
+            retention.ms: "604800000"
+        - name: avro.payments.processed
+          partitions: 8
+          replication-factor: 1
+          configs:
+            cleanup.policy: delete
+            retention.ms: "604800000"
+        - name: avro.payments.failed
+          partitions: 8
+          replication-factor: 1
+          configs:
+            cleanup.policy: delete
+            retention.ms: "604800000"
