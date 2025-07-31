@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: payment_service
+  docker:
+    compose:
+      enabled: false
+      file: ./dependencies/compose.yaml
